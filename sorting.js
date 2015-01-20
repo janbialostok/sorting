@@ -44,12 +44,8 @@ function merge(arr1, arr2){
 	return newArray;
 }
 
-function mergeSort(arr){
-	if (arr.length <= 1){
-		return arr;
-	}
-	else{
-		var left = [];
+function split(arr){
+	var left = [];
 		var right = [];
 		var midPoint = arr.length / 2;
 
@@ -61,8 +57,18 @@ function mergeSort(arr){
 				right.push(arr[x]);
 			}
 		}
-		left = mergeSort(left);
-		right = mergeSort(right);
+		var resultArr = [left, right];
+		return resultArr;
+}
+
+function mergeSort(arr){
+	if (arr.length <= 1){
+		return arr;
 	}
-	return merge(left, right);
+	else{
+		var splitArr = split(arr);
+		var left = mergeSort(splitArr[0]);
+		var right = mergeSort(splitArr[1]);
+		return merge(left, right);
+	}
 }
